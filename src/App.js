@@ -12,7 +12,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import CloudIcon from '@material-ui/icons/Cloud'
-import {BrowserRouter, Route, Link} from "react-router-dom"
+import {BrowserRouter, Route, Link, Redirect} from "react-router-dom"
 import Dashboard from "./pages/dashboard"
 import Ambient from "./pages/ambient"
 
@@ -21,7 +21,9 @@ const useStyles = makeStyles((piplantTheme) => ({
     menuIcon: {
         color: 'white'
     },
-    offset: piplantTheme.mixins.toolbar,
+    offset: {
+        minHeight: "64px"
+    },
     list: {
         width: 220
     },
@@ -76,6 +78,9 @@ function App() {
                         </Toolbar>
                     </AppBar>
                     <Box className={classes.offset}/>
+                    <Route path="/">
+                        <Redirect to="/dashboard"/>
+                    </Route>
                     <Route path="/dashboard">
                         <Dashboard/>
                     </Route>
