@@ -4,7 +4,7 @@ import React from "react"
 
 export default function CpuPanel() {
     return (
-        <DashboardPanel title="Disk" entries={[
+        <DashboardPanel title="CPU" entries={[
             {
                 "title": "Temperature",
                 "name": "temperature",
