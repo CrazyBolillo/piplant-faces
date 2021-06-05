@@ -1,4 +1,8 @@
 export function unixToHumanTime(unixTime) {
+    if (typeof unixTime !== 'number') {
+        return ''
+    }
+
     const date = new Date(unixTime * 1000)
     let minutes = date.getMinutes()
     if (minutes < 10) {
