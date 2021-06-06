@@ -12,9 +12,11 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import CloudIcon from '@material-ui/icons/Cloud'
+import PowerIcon from '@material-ui/icons/Power'
 import {BrowserRouter, Route, Link, Redirect} from "react-router-dom"
 import Dashboard from "./pages/dashboard"
 import Ambient from "./pages/ambient"
+import Relays from "./pages/relays";
 
 const piplantTheme = createMuiTheme({})
 const useStyles = makeStyles((piplantTheme) => ({
@@ -43,6 +45,11 @@ const links = [
         text: 'Ambient',
         link: '/ambient',
         icon: CloudIcon
+    },
+    {
+        text: 'Relays',
+        link: '/relays',
+        icon: PowerIcon
     }
 ]
 
@@ -78,14 +85,14 @@ function App() {
                         </Toolbar>
                     </AppBar>
                     <Box className={classes.offset}/>
-                    <Route path="/">
-                        <Redirect to="/dashboard"/>
-                    </Route>
                     <Route path="/dashboard">
                         <Dashboard/>
                     </Route>
                     <Route path="/ambient">
                         <Ambient/>
+                    </Route>
+                    <Route path="/relays">
+                        <Relays/>
                     </Route>
                 </Container>
                 <Drawer open={state} onClose={() => setState(false)}>
