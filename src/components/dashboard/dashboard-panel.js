@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {unixToHumanTime} from "../../utils";
 import {get} from "../../client/client";
 
-const useStyles = makeStyles({
+export const useStyles = makeStyles({
     container: {
         flexGrow: 1,
         margin: "5px",

@@ -3,6 +3,7 @@ import DiskPanel from "../components/dashboard/disk-panel"
 import {Box} from "@material-ui/core"
 import {makeStyles} from "@material-ui/styles";
 import CpuPanel from "../components/dashboard/cpu-panel";
+import CameraPanel from "../components/dashboard/camera-panel";
 
 const useStyles = makeStyles({
     container: {
@@ -20,6 +21,7 @@ export default function Dashboard() {
             <AmbientPanel/>
             <CpuPanel/>
             <DiskPanel/>
+            <CameraPanel/>
         </Box>
     )
 }
