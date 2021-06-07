@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import CloudIcon from '@material-ui/icons/Cloud'
 import PowerIcon from '@material-ui/icons/Power'
-import {Route, Link, useLocation} from "react-router-dom"
+import {Route, Link, useLocation, Redirect} from "react-router-dom"
 import Dashboard from "./pages/dashboard"
 import Ambient from "./pages/ambient"
 import Relays from "./pages/relays";
@@ -43,6 +43,7 @@ const useStyles = makeStyles(piplantTheme => ({
 }))
 
 const links = {
+    '/': { text: '', icon: React.Fragment},
     '/dashboard': {
         text: 'Dashboard',
         icon: DashboardIcon
@@ -88,6 +89,9 @@ function App() {
                     </Toolbar>
                 </AppBar>
                 <Box className={classes.offset}/>
+                <Route exact path="/">
+                    <Redirect to="/dashboard"/>
+                </Route>
                 <Route path="/dashboard">
                     <Dashboard/>
                 </Route>

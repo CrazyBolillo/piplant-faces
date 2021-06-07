@@ -1,7 +1,8 @@
-import {Paper, Box, Typography, Switch} from "@material-ui/core";
+import {Paper, Box, Typography, Switch, IconButton, MenuItem, Menu} from "@material-ui/core";
 import {makeStyles} from "@material-ui/styles";
 import {useState} from "react";
 import {RelayClient} from "../../client/relay";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles(theme => ({
     outerContainer: {
@@ -11,14 +12,22 @@ const useStyles = makeStyles(theme => ({
         minWidth: "162px",
     },
     container: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        position: "relative"
+    },
+    settingsButton: {
+        margin: theme.spacing(0.2),
+        position: 'absolute',
+        right: 0,
+        top: 0
     }
 }))
 
 
-export default function RelayPanel({relay}) {
+export default function RelayPanel({relay, showBackdrop, refreshList}) {
     const classes = useStyles()
     const [state, setState] = useState(relay.on)
+    const [anchor, setAnchor] = useState(null)
 
     const toggleRelay = async () => {
         let response
@@ -34,9 +43,31 @@ export default function RelayPanel({relay}) {
             setState(!state)
     }
 
+    const deleteRelay = async () => {
+        setAnchor(null)
+        let response
+        try {
+            showBackdrop(true)
+            response = await RelayClient.delete(relay.pin)
+            if (response.ok)
+                refreshList()
+        } catch (ex) {
+
+        } finally {
+            showBackdrop(false)
+        }
+    }
+
     return (
         <Paper className={classes.outerContainer}>
             <Box className={classes.container}>
+                <IconButton className={classes.settingsButton} onClick={event => {setAnchor(event.currentTarget)}}>
+                    <MoreVertIcon/>
+                </IconButton>
+                <Menu anchorEl={anchor} open={Boolean(anchor)} keepMounted onClose={() => {setAnchor(null)}}>
+                    <MenuItem onClick={() => {setAnchor(null)}}>Edit</MenuItem>
+                    <MenuItem onClick={() => {deleteRelay()}}>Delete</MenuItem>
+                </Menu>
                 <Typography variant="h6">{relay.name}</Typography>
                 <Typography variant="subtitle2">{`Pin ${relay.pin}`}</Typography>
                 <Switch checked={state} onClick={() => toggleRelay()}/>
